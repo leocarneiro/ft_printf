@@ -64,7 +64,7 @@ char	*width_p(char *src, t_fields *f)
 	return (wid);
 }
 
-int		type_p(t_fields *f, unsigned int arg)
+int		type_p(t_fields *f, unsigned long long int arg)
 {
 	char	*p;
 	char	*prec;

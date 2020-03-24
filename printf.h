@@ -51,7 +51,7 @@ int		type_s(t_fields *f, char *arg);
 int		type_d(t_fields *f, int arg);
 int		type_u(t_fields *f, unsigned int arg);
 int		type_x(t_fields *f, unsigned int arg);
-int		type_p(t_fields *f, unsigned int arg);
+int		type_p(t_fields *f, unsigned long long int arg);
 
 
 #endif

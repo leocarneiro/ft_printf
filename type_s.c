@@ -17,6 +17,8 @@ char	*precision_s(char *src, t_fields *f)
 	char	*p;
 	int		len;
 
+  if (ft_strcmp(src, "(nil)") == 0)
+    f->precision = -1;
 	len = (int)ft_strlen(src);
 	if (f->precision == 0)
 		p = ft_strdup("");
