@@ -70,12 +70,10 @@ int		type_p(t_fields *f, unsigned long long int arg)
 	char	*prec;
 	char	*wid;
 
-  if (arg == '\0')
-  {
-    return (type_s(f, "(nil)"));
-    //ft_putstr("(nil)");
-    //return (ft_strlen("(nil)"));
-  }
+  if (f->precision > -1 && arg == '\0')
+    p = ft_strdup("");
+  else if (arg == '\0')
+    p = ft_itoa_base(0, 16);
   else
     p = ft_itoa_base(arg, 16);
 	prec = precision_p(p, f);

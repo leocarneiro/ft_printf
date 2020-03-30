@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   field_flags.c                                      :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 19:23:03 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/13 15:27:04 by lramos-r         ###   ########.fr       */
+/*   Created: 2020/03/06 21:26:37 by lramos-r          #+#    #+#             */
+/*   Updated: 2020/03/06 21:28:29 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	field_flags(const char *format)
+int		ft_isnumber(char c)
 {
-	char	flag;
-	char	type;
-	int	i;
-
-	type = field_types(format);
-	flag = 0;
-	i = 1;
-	if (format[1] == '0' && format[0] == '%')
-		flag = '0';
-	while (format[i] != type)
-	{
-		if (format[i] == '-')
-			flag = '-';
-		i++;
-	}
-	return (flag);
+	int		n;
+	
+	n = 0;
+	if (c >= '0' && c <= '9')
+		n = 1;
+	return (n);
 }

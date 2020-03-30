@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   field_precision.c                                  :+:      :+:    :+:   */
+/*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,31 +12,15 @@
 
 #include "printf.h"
 
-int		field_precision(const char *format, va_list arg)
+int	ft_printnbr(char *aux)
 {
-	int	precision;
-	char	*aux;
-	char	type;
+	int	n;
 
-	precision = -1;
-	aux = (char *)format;
-	type = field_types(format);
-	while (*aux && *aux != type)
+	n = 0;
+	while (ft_isnumber(*aux) == 1)
 	{
-		if (!(ft_strchr(format, '.')))
-			break ;
-		else if (*aux == '.')
-		{
-			aux++;
-			if (*aux == '*')
-			{
-				precision = va_arg(arg, int);
-				break ;
-			}
-			precision = ft_printnbr(aux);
-			break ;
-		}
+		n = n * 10 + *aux - 48;
 		aux++;
 	}
-	return (precision);
+	return (n);
 }
