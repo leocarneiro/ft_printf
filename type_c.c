@@ -18,6 +18,8 @@ int		type_c(t_fields *f, int arg)
 
 	if (arg == '\0')
 		return (nullterm(f, arg));
+  if (f->type == '%')
+    f->width = 0;
   if (f->width < 0)
   {
     f->width *= -1;

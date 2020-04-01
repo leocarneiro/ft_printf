@@ -17,8 +17,6 @@ char	*precision_s(char *src, t_fields *f)
 	char	*p;
 	int		len;
 
-  if (ft_strcmp(src, "(nil)") == 0)
-    f->precision = -1;
 	len = (int)ft_strlen(src);
 	if (f->precision == 0)
 		p = ft_strdup("");
@@ -72,10 +70,10 @@ int		type_s(t_fields *f, char *arg)
 	char	*p;
 	char	*w;
 
-	if (arg == NULL)// && f->precision >= ft_strlen("(null)"))
+	if (arg == NULL && f->precision >= ft_strlen("(null)"))
 		arg = "(null)";
-  //else if (arg == NULL)
-    //arg = ft_strdup("");
+  else if (arg == NULL)
+    arg = ft_strdup("");
 	p = precision_s(arg, f);
 	w = width_s(p, f);
 	ft_putstr(w);

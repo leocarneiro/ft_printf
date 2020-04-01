@@ -14,29 +14,34 @@
 
 int		field_precision(const char *format, va_list arg)
 {
-	int	precision;
-	char	*aux;
+	int		precision;
+	int		i;
 	char	type;
 
-	precision = -1;
-	aux = (char *)format;
 	type = field_types(format);
-	while (*aux && *aux != type)
+	precision = -1;
+	i = 0;
+	while (format[i] && format[i] != type)
 	{
 		if (!(ft_strchr(format, '.')))
 			break ;
-		else if (*aux == '.')
+		else if (format[i] == '.')
 		{
-			aux++;
-			if (*aux == '*')
+			i++;
+			if (format[i] == '*')
 			{
 				precision = va_arg(arg, int);
 				break ;
 			}
-			precision = ft_printnbr(aux);
+			precision = 0;
+			while (format[i] >= '0' && format[i] <= '9')
+			{
+				precision = precision * 10 + format[i] - 48;
+				i++;
+			}
 			break ;
 		}
-		aux++;
+		i++;
 	}
 	return (precision);
 }
