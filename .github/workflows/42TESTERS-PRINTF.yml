@@ -8,7 +8,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run: make
       working-directory: ./42TESTERS-PRINTF
-    - name: runtest
-      run: ./runtest.sh
+    - name: run_test
+      run: bash run_test.sh
       working-directory: ./42TESTERS-PRINTF
