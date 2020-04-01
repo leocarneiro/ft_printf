@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: make
+      run: ./srcs/make
       working-directory: ./42TESTERS-PRINTF
     - name: run_test
       run: bash run_test.sh
