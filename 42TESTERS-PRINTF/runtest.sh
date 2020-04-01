@@ -3,14 +3,14 @@
 rm diff.txt &> /dev/null
 rm -rf results
 mkdir results
-gcc -Wall -Werror -Wextra -w srcs/main_tester.c -D PRINT="printf" -o printf.out # &> /dev/null
+gcc -Wall -Werror -Wextra -w ./main_tester.c -D PRINT="printf" -o printf.out # &> /dev/null
 ./printf.out >> results/expected_result.txt
-make -C srcs/
-./srcs/tester.out >> results/test_result.txt
-cp srcs/main_tester.c srcs/main_test_list.c
-sed -i -e "s/PRINT(\" --- Return : %d\\\n\", /B/g" srcs/main_test_list.c
-sed -i -e "s/));/);/g" srcs/main_test_list.c
-gcc -Wall -Werror -Wextra -w srcs/main_test_list.c -D PRINT="printf" -o printf.out # &> /dev/null
+make -C ./
+./tester.out >> results/test_result.txt
+cp ./main_tester.c ./main_test_list.c
+sed -i -e "s/PRINT(\" --- Return : %d\\\n\", /B/g" ./main_test_list.c
+sed -i -e "s/));/);/g" ./main_test_list.c
+gcc -Wall -Werror -Wextra -w ./main_test_list.c -D PRINT="printf" -o printf.out # &> /dev/null
 ./printf.out >> results/test_list.txt
 echo ""
 echo "============================================================================================================================================================="
@@ -96,5 +96,5 @@ else
 	echo
 	echo
 fi
-rm -rf results printf.txt ft.txt test.txt printf.out srcs/main_test_list.c srcs/main_test_list.c-e &> /dev/null
-make -C srcs/ fclean &> /dev/null
+rm -rf results printf.txt ft.txt test.txt printf.out ./main_test_list.c ./main_test_list.c-e &> /dev/null
+make -C ./ fclean &> /dev/null
