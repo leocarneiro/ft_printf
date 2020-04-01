@@ -13,5 +13,5 @@ jobs:
       run: make
       working-directory: ./42TESTERS-PRINTF
     - name: run_test
-      run: bash run_test.sh
+      run: bash runtest.sh
       working-directory: ./42TESTERS-PRINTF
