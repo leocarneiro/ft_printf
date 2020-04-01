@@ -13,7 +13,7 @@
 NAME		= libftprintf.a
 
 SRC			= calc_fields.c field_flags.c field_precision.c field_types.c \
-				field_width.c ft_isnumber.c ft_itoa_base.c ft_memmove.c \ 
+				field_width.c ft_isnumber.c ft_itoa_base.c ft_memmove.c \
 				ft_memset.c ft_printf.c ft_printnbr.c ft_putchar.c ft_putstr.c \
 				ft_strchr.c ft_strcmp.c ft_strdup.c ft_strlen.c ft_strnew.c \
 				ft_strupcase.c nullterm.c type_c.c type_d.c type_p.c type_s.c \
