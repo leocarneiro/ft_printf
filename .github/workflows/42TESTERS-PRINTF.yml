@@ -9,7 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      working-directory: ./42TESTERS-PRINTF/srcs
     - name: make
       run: make
       working-directory: ./42TESTERS-PRINTF
