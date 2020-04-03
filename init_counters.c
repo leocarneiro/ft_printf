@@ -16,7 +16,7 @@ t_count	*init_counters(void)
 {
 	t_count	*counter;
 
-	if (!(counter = (t_count *)malloc(sizeof(t_count *))))
+	if (!(counter = (t_count *)malloc(sizeof(t_count))))
 		return (NULL);
 	counter->i = 0;
 	counter->j = 0;
