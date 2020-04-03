@@ -13,11 +13,11 @@
 NAME		= libftprintf.a
 
 SRC			= ft_putchar.c ft_putstr.c ft_strlen.c ft_strchr.c ft_strdup.c \
-			  ft_strcmp.c ft_substr.c ft_itoa_base.c ft_isnumber.c ft_memset.c \
-			  ft_memmove.c ft_strnew.c ft_strupcase.c field_types.c \
-			  field_flags.c field_width.c field_precision.c calc_fields.c \
-			  type_c.c type_s.c type_d.c type_u.c type_x.c type_p.c \
-			  nullterm.c ft_printf.c
+			  ft_strcmp.c ft_itoa_base.c ft_memset.c ft_memmove.c ft_strnew.c \
+				ft_strupcase.c field_types.c field_flags.c field_width.c \
+				field_precision.c calc_fields.c type_c.c type_s.c type_d.c type_u.c \
+				type_x.c type_p.c ft_printf.c ft_isnumber.c ft_printnbr.c \
+				init_counters.c
 
 OBJ			= $(SRC:.c=.o)
 
