@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-int	ft_printnbr(char *aux)
+int	ft_printnbr(const char *aux)
 {
 	int	n;
 

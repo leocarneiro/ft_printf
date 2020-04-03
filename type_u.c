@@ -12,14 +12,12 @@
 
 #include "printf.h"
 
-char	*precision_u(char *src, t_fields *f)
+static	char	*precision_u(char *src, t_fields *f)
 {
 	char	*p;
 	int		len;
 
 	len = (int)ft_strlen(src);
-  //if (f->precision < 0)
-    //f->precision = f->precision * (-1);
 	if (f->precision <= len)
 		p = ft_strdup(src);
 	else
@@ -31,39 +29,45 @@ char	*precision_u(char *src, t_fields *f)
 	return (p);
 }
 
-char	*width_u(char *src, t_fields *f)
+static	int		aux_width_u(t_fields *f, int len, char *src, char *w)
+{
+	if (f->flag == '-')
+	{
+		ft_memmove(w, src, len);
+		ft_memset(&w[len], ' ', f->width - len);
+	}
+	else if (f->flag == '0' && f->precision < 0)
+	{
+		ft_memset(w, '0', f->width - len);
+		ft_memmove(&w[f->width - len], src, len);
+	}
+	else
+	{
+		ft_memset(w, ' ', f->width - len);
+		ft_memmove(&w[f->width - len], src, len);
+	}
+	return (0);
+}
+
+static	char	*width_u(char *src, t_fields *f)
 {
 	char	*w;
 	int		len;
 
 	len = (int)ft_strlen(src);
-  if (f->width < 0)
-    f->width = f->width * (-1);
+	if (f->width < 0)
+		f->width = f->width * (-1);
 	if (f->width <= len)
 		w = ft_strdup(src);
 	else
 	{
 		w = ft_strnew(f->width);
-		if (f->flag == '-')
-		{
-			ft_memmove(w, src, len);
-			ft_memset(&w[len], ' ', f->width - len);
-		}
-		else if (f->flag == '0' && f->precision < 0)
-		{
-			ft_memset(w, '0', f->width - len);
-			ft_memmove(&w[f->width - len], src, len);
-		}
-		else
-		{
-			ft_memset(w, ' ', f->width - len);
-			ft_memmove(&w[f->width - len], src, len);
-		}
+		aux_width_u(f, len, src, w);
 	}
 	return (w);
 }
 
-int		type_u(t_fields *f, unsigned int arg)
+int				type_u(t_fields *f, unsigned int arg)
 {
 	char	*u;
 	char	*p;

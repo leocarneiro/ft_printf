@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-char	*precision_p(char *src, t_fields *f)
+static	char	*precision_p(char *src, t_fields *f)
 {
 	char	*prec;
 	int		len;
@@ -34,7 +34,27 @@ char	*precision_p(char *src, t_fields *f)
 	return (prec);
 }
 
-char	*width_p(char *src, t_fields *f)
+static	int		aux_width_p(t_fields *f, int len, char *src, char *wid)
+{
+	if (f->flag == '-')
+	{
+		ft_memmove(wid, src, len);
+		ft_memset(&wid[len], ' ', f->width - len);
+	}
+	else if (f->flag == '0')
+	{
+		ft_memmove(wid, src, len);
+		ft_memset(&wid[len], '0', f->width - len);
+	}
+	else
+	{
+		ft_memset(wid, ' ', f->width - len);
+		ft_memmove(&wid[f->width - len], src, len);
+	}
+	return (0);
+}
+
+static	char	*width_p(char *src, t_fields *f)
 {
 	char	*wid;
 	int		len;
@@ -45,39 +65,23 @@ char	*width_p(char *src, t_fields *f)
 	else
 	{
 		wid = ft_strnew(f->width);
-		if (f->flag == '-')
-		{
-			ft_memmove(wid, src, len);
-			ft_memset(&wid[len], ' ', f->width - len);
-		}
-		else if (f->flag == '0')
-		{
-			ft_memmove(wid, src, len);
-			ft_memset(&wid[len], '0', f->width - len);
-		}
-		else
-		{
-			ft_memset(wid, ' ', f->width - len);
-			ft_memmove(&wid[f->width - len], src, len);
-		}
+		aux_width_p(f, len, src, wid);
 	}
 	return (wid);
 }
 
-int		type_p(t_fields *f, unsigned long long int arg)
+int				type_p(t_fields *f, unsigned long long int arg)
 {
 	char	*p;
 	char	*prec;
 	char	*wid;
 
-  if (arg == '\0')
-  {
-    return (type_s(f, "(nil)"));
-    //ft_putstr("(nil)");
-    //return (ft_strlen("(nil)"));
-  }
-  else
-    p = ft_itoa_base(arg, 16);
+	if (f->precision > -1 && arg == '\0')
+		p = ft_strdup("");
+	else if (arg == '\0')
+		p = ft_itoa_base(0, 16);
+	else
+		p = ft_itoa_base(arg, 16);
 	prec = precision_p(p, f);
 	wid = width_p(prec, f);
 	ft_putstr(wid);

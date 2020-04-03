@@ -25,7 +25,7 @@ char	field_types(const char *format)
 		if (ft_strchr(conv, *format))
 		{
 			type = *format;
-			break;
+			break ;
 		}
 		format++;
 	}

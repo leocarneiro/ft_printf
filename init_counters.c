@@ -12,10 +12,15 @@
 
 #include "printf.h"
 
-void	*init_counters(t_count *counter)
+t_count	*init_counters(void)
 {
+	t_count	*counter;
+
+	if (!(counter = (t_count *)malloc(sizeof(t_count *))))
+		return (NULL);
 	counter->i = 0;
 	counter->j = 0;
 	counter->k = 0;
 	counter->n = 0;
+	return (counter);
 }

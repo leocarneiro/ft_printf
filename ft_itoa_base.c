@@ -51,7 +51,7 @@ char	*ft_itoa_base(long long i, int base)
 	while (i / base >= 0 && ((i > 0) ? (--len >= 0) : (--len > 0)))
 	{
 		result[len] = tab[i % base];
-		i = i /base;
+		i = i / base;
 	}
 	result[p] = '\0';
 	return (result);

@@ -15,9 +15,9 @@
 int		ft_isnumber(char c)
 {
 	int		n;
-	
+
 	n = 0;
-	if (c >= '0' || c <= '9')
+	if (c >= '0' && c <= '9')
 		n = 1;
 	return (n);
 }

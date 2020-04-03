@@ -30,7 +30,7 @@ static	int			cases(const char *format)
 	return (res);
 }
 
-static	void		*aux_function(const char *s, t_count *c)
+static	int			aux_function(const char *s, t_count *c)
 {
 	if (ft_strcmp((char *)s, "%") == 0)
 	{
@@ -48,9 +48,10 @@ static	void		*aux_function(const char *s, t_count *c)
 		c->k = -1;
 		c->i = -1;
 	}
+	return (0);
 }
 
-static	void		*conv(const char *s, t_count *c, t_fields *f, va_list arg)
+static	int			conv(const char *s, t_count *c, t_fields *f, va_list arg)
 {
 	if (f->type == 's')
 		c->i = type_s(f, va_arg(arg, char *));
@@ -69,6 +70,7 @@ static	void		*conv(const char *s, t_count *c, t_fields *f, va_list arg)
 		c->i = type_c(f, '%');
 		s++;
 	}
+	return (0);
 }
 
 static	void		aux_printf(const char *format, t_count *c, va_list arg)
@@ -106,7 +108,7 @@ int					ft_printf(const char *format, ...)
 	t_count		*counter;
 
 	va_start(arg, format);
-	init_counters(counter);
+	counter = init_counters();
 	aux_printf(format, counter, arg);
 	va_end(arg);
 	return (counter->k + counter->j);

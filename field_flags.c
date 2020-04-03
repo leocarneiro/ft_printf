@@ -15,19 +15,19 @@
 char	field_flags(const char *format)
 {
 	char	flag;
-  char  type;
-  int   i;
+	char	type;
+	int		i;
 
-  type = field_types(format);
+	type = field_types(format);
 	flag = 0;
-  i = 1;
-  if (format[1] == '0' && format[0] == '%')
-    flag = '0';
+	i = 1;
+	if (format[1] == '0' && format[0] == '%')
+		flag = '0';
 	while (format[i] != type)
-  {
-    if (format[i] == '-')
-      flag = '-';
-    i++;
-  }
+	{
+		if (format[i] == '-')
+			flag = '-';
+		i++;
+	}
 	return (flag);
 }
