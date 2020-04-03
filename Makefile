@@ -28,7 +28,7 @@ H			= printf.h
 all:$(NAME)
 
 $(NAME):
-		gcc -c $(FLAG) $(SRC)
+		gcc -c $(FLAGS) $(SRC)
 		ar rc $(NAME) $(OBJ)
 		ranlib $(NAME)
 
@@ -41,4 +41,4 @@ fclean: clean
 re:	fclean all
 
 norm:
-		norminette -CheckForbiddenSourceHeader *.[ch]
+		~/.norminette/norminette.rb *.[ch]

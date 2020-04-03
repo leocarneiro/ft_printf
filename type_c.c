@@ -16,19 +16,16 @@ static	int		nullterm(t_fields *f, int arg)
 {
 	int		i;
 
-	i = 1;
+	i = 0;
 	if (f->flag == '-')
 	{
 		ft_putchar(arg);
-		while (i < f->width)
-		{
+		while (++i < f->width)
 			ft_putchar(' ');
-			i++;
-		}
 	}
 	else
 	{
-		while (i++ < f->width)
+		while (i++ < f->width - 1)
 			ft_putchar(' ');
 		ft_putchar(arg);
 	}

@@ -70,17 +70,19 @@ static	char	*width_s(char *src, t_fields *f)
 
 int				type_s(t_fields *f, char *arg)
 {
+	char	*s;
 	char	*p;
 	char	*w;
 
 	if (arg == NULL)
 		arg = "(null)";
+	s = ft_strdup(arg);
 	if (f->width < 0)
 	{
 		f->width = f->width * (-1);
 		f->flag = '-';
 	}
-	p = precision_s(arg, f);
+	p = precision_s(s, f);
 	w = width_s(p, f);
 	ft_putstr(w);
 	return ((int)ft_strlen(w));

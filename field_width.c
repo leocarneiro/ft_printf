@@ -41,10 +41,10 @@ int				field_width(const char *format, va_list arg)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == '.' || *format == '%')
-				break ;
 			while (*format == '-' || *format == '0')
 				format++;
+			if (*format == '.' || *format == '%')
+				break ;
 			width = calc_width(format, arg, width);
 			break ;
 		}

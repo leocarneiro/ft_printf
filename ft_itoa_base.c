@@ -32,10 +32,10 @@ int		nblen(long long n, int base)
 
 char	*ft_itoa_base(long long i, int base)
 {
-	char		*result;
-	char		*tab;
-	long		len;
-	long long	p;
+	char			*result;
+	char			*tab;
+	long			len;
+	long long		p;
 
 	p = nblen(i, base);
 	len = p;
