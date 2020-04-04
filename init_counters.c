@@ -21,6 +21,5 @@ t_count	*init_counters(void)
 	counter->i = 0;
 	counter->j = 0;
 	counter->k = 0;
-	counter->n = 0;
 	return (counter);
 }

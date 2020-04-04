@@ -31,7 +31,6 @@ typedef	struct	s_count
 	int	i;
 	int	j;
 	int	k;
-	int	n;
 }				t_count;
 
 char			field_flags(const char *format);

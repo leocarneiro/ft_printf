@@ -16,20 +16,16 @@ int		ft_printf(const char *format, ...)
 {
 	va_list		arg;
 	t_fields	*f;
-	int			i;
-	int			j;
-	int			soma;
+	t_count		*c;
 
 	va_start(arg, format);
-	i = 0;
-	soma = 0;
-	j = 0;
+	c = init_counters();
 	while (*format)
 	{
 		if (*format != '%')
 		{
 			ft_putchar(*format);
-			j++;
+			c->j++;
 		}
 		else
 		{
@@ -38,37 +34,37 @@ int		ft_printf(const char *format, ...)
       {
         if (ft_strcmp((char *)format, "%") == 0)
         {
-          soma = -1;
-          i = -1;
+          c->k = -1;
+          c->i = -1;
           break ;
         }
         else
         {
           ft_putstr((char *)format);
-          soma = ft_strlen(format);
+          c->k = ft_strlen(format);
 				  break ;
         }
       }
       else if (f->type == 's')
-				i = type_s(f, va_arg(arg, char *));
+				c->i = type_s(f, va_arg(arg, char *));
 			else if (f->type == 'c')
-				i = type_c(f, va_arg(arg, int));
+				c->i = type_c(f, va_arg(arg, int));
 			else if (f->type == 'd' || f->type == 'i')
-				i = type_d(f, va_arg(arg, int));
+				c->i = type_d(f, va_arg(arg, int));
 			else if (f->type == 'u')
-        i = type_u(f, va_arg(arg, unsigned int));
+        		c->i = type_u(f, va_arg(arg, unsigned int));
 			else if (f->type == 'x' || f->type == 'X')
-				i = type_x(f, va_arg(arg, unsigned int));
+				c->i = type_x(f, va_arg(arg, unsigned int));
 			else if (f->type == 'p')
-				i = type_p(f, va_arg(arg, unsigned long long int));
+				c->i = type_p(f, va_arg(arg, unsigned long long int));
 			else if (f->type == '%')
 			{
-				i = type_c(f, '%');
+				c->i = type_c(f, '%');
 				format++;
 			}
 			while (*format != f->type)
 				format++;
-			soma = soma + i;
+			c->k = c->k + c->i;
 		}
 		format++;
 	}
@@ -76,5 +72,5 @@ int		ft_printf(const char *format, ...)
 	//return ((int)f->width);
 	//return ((int)f->precision);
 	//return ((int)f->flag);
-  	return (soma + j);
+  	return (c->k + c->j);
 }
