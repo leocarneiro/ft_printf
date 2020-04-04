@@ -49,12 +49,10 @@ static	int		select_type(t_fields *f, t_count *c, va_list arg)
 	return (c->i);
 }
 
-static	int		aux_printf(const char *format, va_list arg)
+static	int		aux_printf(const char *format, va_list arg, t_count *c)
 {
 	t_fields	*f;
-	t_count		*c;
 
-	c = init_counters();
 	while (*format)
 	{
 		if (*format != '%')
@@ -87,9 +85,11 @@ int				ft_printf(const char *format, ...)
 {
 	va_list		arg;
 	int			ret;
+	t_count		*c;
 
 	va_start(arg, format);
-	ret = aux_printf(format, arg);
+	c = init_counters();
+	ret = aux_printf(format, arg, c);
 	va_end(arg);
 	return (ret);
 }
