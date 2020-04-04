@@ -32,7 +32,7 @@ static	int		no_type(t_fields *f, t_count *c, const char *format)
 	return (0);
 }
 
-static	int		def_type(t_fields *f, t_count *c, va_list arg, const char *fmt)
+static	int		select_type(t_fields *f, t_count *c, va_list arg)
 {
 	if (f->type == 's')
 		c->i = type_s(f, va_arg(arg, char *));
@@ -73,7 +73,7 @@ static	int		aux_printf(const char *format, va_list arg)
 				format++;
 			}
 			else
-				c->i = def_type(f, c, arg, format);
+				c->i = select_type(f, c, arg);
 			while (*format != f->type)
 				format++;
 			c->k = c->k + c->i;
