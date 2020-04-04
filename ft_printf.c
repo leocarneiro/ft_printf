@@ -12,13 +12,48 @@
 
 #include "printf.h"
 
-int		ft_printf(const char *format, ...)
+static	int		no_type(t_fields *f, t_count *c, const char *format)
 {
-	va_list		arg;
+	if (f->type == -1)
+	{
+		if (ft_strcmp((char *)format, "%") == 0)
+		{
+			c->k = -1;
+			c->i = -1;
+			return (1);
+		}
+		else
+		{
+			ft_putstr((char *)format);
+			c->k = ft_strlen(format);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static	int		select_type(t_fields *f, t_count *c, va_list arg)
+{
+	if (f->type == 's')
+		c->i = type_s(f, va_arg(arg, char *));
+	else if (f->type == 'c')
+		c->i = type_c(f, va_arg(arg, int));
+	else if (f->type == 'd' || f->type == 'i')
+		c->i = type_d(f, va_arg(arg, int));
+	else if (f->type == 'u')
+		c->i = type_u(f, va_arg(arg, unsigned int));
+	else if (f->type == 'x' || f->type == 'X')
+		c->i = type_x(f, va_arg(arg, unsigned int));
+	else if (f->type == 'p')
+		c->i = type_p(f, va_arg(arg, unsigned long long int));
+	return (c->i);
+}
+
+static	int		aux_printf(const char *format, va_list arg)
+{
 	t_fields	*f;
 	t_count		*c;
 
-	va_start(arg, format);
 	c = init_counters();
 	while (*format)
 	{
@@ -30,47 +65,31 @@ int		ft_printf(const char *format, ...)
 		else
 		{
 			f = calc_fields(format, arg);
-			if (f->type == -1)
-      {
-        if (ft_strcmp((char *)format, "%") == 0)
-        {
-          c->k = -1;
-          c->i = -1;
-          break ;
-        }
-        else
-        {
-          ft_putstr((char *)format);
-          c->k = ft_strlen(format);
-				  break ;
-        }
-      }
-      else if (f->type == 's')
-				c->i = type_s(f, va_arg(arg, char *));
-			else if (f->type == 'c')
-				c->i = type_c(f, va_arg(arg, int));
-			else if (f->type == 'd' || f->type == 'i')
-				c->i = type_d(f, va_arg(arg, int));
-			else if (f->type == 'u')
-        		c->i = type_u(f, va_arg(arg, unsigned int));
-			else if (f->type == 'x' || f->type == 'X')
-				c->i = type_x(f, va_arg(arg, unsigned int));
-			else if (f->type == 'p')
-				c->i = type_p(f, va_arg(arg, unsigned long long int));
+			if (no_type(f, c, format) == 1)
+				break ;
 			else if (f->type == '%')
 			{
 				c->i = type_c(f, '%');
 				format++;
 			}
+			else
+				c->i = select_type(f, c, arg);
 			while (*format != f->type)
 				format++;
 			c->k = c->k + c->i;
 		}
 		format++;
 	}
+	return (c->k + c->j);
+}
+
+int				ft_printf(const char *format, ...)
+{
+	va_list		arg;
+	int			ret;
+
+	va_start(arg, format);
+	ret = aux_printf(format, arg);
 	va_end(arg);
-	//return ((int)f->width);
-	//return ((int)f->precision);
-	//return ((int)f->flag);
-  	return (c->k + c->j);
+	return (ret);
 }
