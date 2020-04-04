@@ -32,7 +32,7 @@ static	int		no_type(t_fields *f, t_count *c, const char *format)
 	return (0);
 }
 
-static	int		select_type(t_fields *f, t_count *c, va_list arg)
+static	int		def_type(va_list arg, t_fields *f, t_count *c)
 {
 	if (f->type == 's')
 		c->i = type_s(f, va_arg(arg, char *));
@@ -46,39 +46,36 @@ static	int		select_type(t_fields *f, t_count *c, va_list arg)
 		c->i = type_x(f, va_arg(arg, unsigned int));
 	else if (f->type == 'p')
 		c->i = type_p(f, va_arg(arg, unsigned long long int));
+	else if (f->type == '%')
+		c->i = type_c(f, '%');
 	return (c->i);
 }
 
-static	int		aux_printf(const char *format, va_list arg)
+static	int		aux_printf(const char *ft, va_list arg, t_fields *f, t_count *c)
 {
-	t_fields	*f;
-	t_count		*c;
-
-	c = init_counters();
-	while (*format)
+	while (*ft)
 	{
-		if (*format != '%')
+		if (*ft != '%')
 		{
-			ft_putchar(*format);
+			ft_putchar(*ft);
 			c->j++;
 		}
 		else
 		{
-			f = calc_fields(format, arg);
-			if (no_type(f, c, format) == 1)
+			if (no_type(f, c, ft) == 1)
 				break ;
 			else if (f->type == '%')
 			{
-				c->i = type_c(f, '%');
-				format++;
+				c->i = def_type(arg, f, c);
+				ft++;
 			}
 			else
-				c->i = select_type(f, c, arg);
-			while (*format != f->type)
-				format++;
+				c->i = def_type(arg, f, c);
+			while (*ft != f->type)
+				ft++;
 			c->k = c->k + c->i;
 		}
-		format++;
+		ft++;
 	}
 	return (c->k + c->j);
 }
@@ -87,9 +84,13 @@ int				ft_printf(const char *format, ...)
 {
 	va_list		arg;
 	int			ret;
+	t_fields	*f;
+	t_count		*c;
 
 	va_start(arg, format);
-	ret = aux_printf(format, arg);
+	f = calc_fields(format, arg);
+	c = init_counters();
+	ret = aux_printf(format, arg, f, c);
 	va_end(arg);
 	return (ret);
 }
