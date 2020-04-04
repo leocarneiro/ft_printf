@@ -12,20 +12,22 @@
 
 #include "printf.h"
 
-static	int		calc_width(const char *format, va_list arg, int width)
+static	int		calc_width(const char *format, va_list arg)
 {
-	while (*format)
+	int		width;
+	char	type;
+
+	width = 0;
+	type = field_types(format);
+	while (*format && *format != type)
 	{
 		if (*format == '*')
 		{
 			width = va_arg(arg, int);
 			break ;
 		}
-		else if (*format > '0' && *format <= '9')
-		{
-			width = ft_printnbr((char *)format);
-			break ;
-		}
+		width = ft_printnbr(format);
+		break ;
 		format++;
 	}
 	return (width);
@@ -35,7 +37,6 @@ int				field_width(const char *format, va_list arg)
 {
 	int		width;
 
-	width = 0;
 	while (*format)
 	{
 		if (*format == '%')
@@ -45,7 +46,7 @@ int				field_width(const char *format, va_list arg)
 				format++;
 			if (*format == '.' || *format == '%')
 				break ;
-			width = calc_width(format, arg, width);
+			width = calc_width(format, arg);
 			break ;
 		}
 		format++;
