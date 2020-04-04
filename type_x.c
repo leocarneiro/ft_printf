@@ -88,6 +88,7 @@ int				type_x(t_fields *f, unsigned int arg)
 	char	*x;
 	char	*p;
 	char	*w;
+	int		len;
 
 	if (f->precision == 0 && arg == 0)
 		x = ft_strdup("");
@@ -102,6 +103,10 @@ int				type_x(t_fields *f, unsigned int arg)
 	}
 	p = precision_x(x, f);
 	w = width_x(p, f);
+	len = (int)ft_strlen(w);
 	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	free(x);
+	free(p);
+	free(w);
+	return (len);
 }

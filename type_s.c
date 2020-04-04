@@ -73,6 +73,7 @@ int				type_s(t_fields *f, char *arg)
 	char	*s;
 	char	*p;
 	char	*w;
+	int		len;
 
 	if (arg == NULL)
 		arg = "(null)";
@@ -84,6 +85,10 @@ int				type_s(t_fields *f, char *arg)
 	}
 	p = precision_s(s, f);
 	w = width_s(p, f);
+	len = (int)ft_strlen(w);
 	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	free(s);
+	free(p);
+	free(w);
+	return (len);
 }

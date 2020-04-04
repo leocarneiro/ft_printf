@@ -74,7 +74,8 @@ int				type_p(t_fields *f, unsigned long long int arg)
 {
 	char	*p;
 	char	*prec;
-	char	*wid;
+	char	*w;
+	int		len;
 
 	if (f->precision > -1 && arg == '\0')
 		p = ft_strdup("");
@@ -83,7 +84,11 @@ int				type_p(t_fields *f, unsigned long long int arg)
 	else
 		p = ft_itoa_base(arg, 16);
 	prec = precision_p(p, f);
-	wid = width_p(prec, f);
-	ft_putstr(wid);
-	return ((int)ft_strlen(wid));
+	w = width_p(prec, f);
+	len = (int)ft_strlen(w);
+	ft_putstr(w);
+	free(prec);
+	free(p);
+	free(w);
+	return (len);
 }

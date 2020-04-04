@@ -65,6 +65,7 @@ int				type_c(t_fields *f, int arg)
 {
 	char	*w;
 	char	c;
+	int		len;
 
 	if (f->width < 0)
 	{
@@ -75,6 +76,8 @@ int				type_c(t_fields *f, int arg)
 		return (nullterm(f, arg));
 	c = (unsigned char)arg;
 	w = width_c(f, c);
+	len = (int)ft_strlen(w);
 	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	free(w);
+	return (len);
 }

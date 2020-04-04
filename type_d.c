@@ -88,6 +88,7 @@ int				type_d(t_fields *f, int arg)
 	char	*d;
 	char	*w;
 	char	*p;
+	int		len;
 
 	if (f->precision == 0 && arg == 0)
 		d = ft_strdup("");
@@ -100,6 +101,10 @@ int				type_d(t_fields *f, int arg)
 	}
 	p = precision_d(d, f);
 	w = width_d(p, f);
+	len = (int)ft_strlen(w);
 	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	free(d);
+	free(p);
+	free(w);
+	return (len);
 }

@@ -72,6 +72,7 @@ int				type_u(t_fields *f, unsigned int arg)
 	char	*u;
 	char	*p;
 	char	*w;
+	int		len;
 
 	if (f->precision == 0 && arg == 0)
 		u = ft_strdup("");
@@ -79,6 +80,10 @@ int				type_u(t_fields *f, unsigned int arg)
 		u = ft_itoa_base(arg, 10);
 	p = precision_u(u, f);
 	w = width_u(p, f);
+	len = (int)ft_strlen(w);
 	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	free(u);
+	free(p);
+	free(w);
+	return (len);
 }
