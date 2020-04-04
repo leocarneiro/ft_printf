@@ -46,6 +46,8 @@ static	int		select_type(t_fields *f, t_count *c, va_list arg)
 		c->i = type_x(f, va_arg(arg, unsigned int));
 	else if (f->type == 'p')
 		c->i = type_p(f, va_arg(arg, unsigned long long int));
+	else if (f->type == '%')
+		c->i = type_c(f, '%');
 	return (c->i);
 }
 
@@ -65,13 +67,10 @@ static	int		aux_printf(const char *format, va_list arg, t_count *c)
 			f = calc_fields(format, arg);
 			if (no_type(f, c, format) == 1)
 				break ;
-			else if (f->type == '%')
-			{
-				c->i = type_c(f, '%');
-				format++;
-			}
 			else
 				c->i = select_type(f, c, arg);
+			if (f->type == '%')
+				format++;
 			while (*format != f->type)
 				format++;
 			c->k = c->k + c->i;
