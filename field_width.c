@@ -37,6 +37,7 @@ int				field_width(const char *format, va_list arg)
 {
 	int		width;
 
+	width = 0;
 	while (*format)
 	{
 		if (*format == '%')
